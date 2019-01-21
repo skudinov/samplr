@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<smplr:entity id="an-id" xmlns:smplr="urn:samplr/entity/1">
+  <smplr:name>A name</smplr:name>
+</smplr:entity>
