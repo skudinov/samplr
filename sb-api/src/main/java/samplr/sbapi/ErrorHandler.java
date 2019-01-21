@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Slf4j
 public class ErrorHandler {
 
-  @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler(Exception.class)
   @ResponseBody
   public String handleInternalError(Exception e) {
