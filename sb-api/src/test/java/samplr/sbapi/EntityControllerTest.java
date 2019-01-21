@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ApiControllerTest {
+public class EntityControllerTest {
   @Value("classpath:root-entity.xml")
   private Resource resource;
   private String xml;

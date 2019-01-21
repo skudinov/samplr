@@ -10,7 +10,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_XML_VALUE;
 
 @RestController
-public class ApiController {
+public class EntityController {
 
   @PostMapping(path = "/", consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<String> insertOrUpdate(@RequestBody Entity entity) {
