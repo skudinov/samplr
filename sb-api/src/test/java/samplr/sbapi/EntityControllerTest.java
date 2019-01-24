@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class EntityControllerTest {
-  @Value("classpath:root-entity.xml")
+  @Value("classpath:mybatis.xml")
   private Resource resource;
   private String xml;
   @Autowired
