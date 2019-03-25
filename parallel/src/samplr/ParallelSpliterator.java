@@ -42,7 +42,7 @@ public class ParallelSpliterator implements Spliterator<String> {
     boolean isLastChunk = false;
     int toBeSentChunkIndex = 0;
     try {
-      for (int j = 0; j < taskCount && !isLastChunk; j++) {
+      for (int j = 0; j < taskCount; j++) {
         Chunk newChunk = completor.take().get();
         isLastChunk = newChunk.isLast();
         if (!isLastChunk) {
