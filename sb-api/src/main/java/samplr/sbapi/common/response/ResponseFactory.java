@@ -18,7 +18,7 @@ public class ResponseFactory {
     return ResponseBody
         .<XMLEntity>begin()
         .metadata(Metadata.success())
-        .payload(new XMLEntity())
+        .payload(payload)
         .end();
   }
 
