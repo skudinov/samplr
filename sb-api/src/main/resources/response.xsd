@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<xs:schema xmlns:xs = "http://www.w3.org/2001/XMLSchema"
+           targetNamespace = "urn:samplr-sbapi/1"
+           version="1.0"
+           xmlns = "urn:samplr-sbapi/1"
+           elementFormDefault = "qualified">
+
+  <xs:element name = "response">
+    <xs:complexType >
+      <xs:sequence>
+        <xs:element name = "metadata" type = "MetadataType"/>
+        <xs:element name = "payload" type = "PayloadType"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="PayloadType">
+    <xs:sequence>
+      <xs:any minOccurs = "0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MetadataType">
+    <xs:sequence>
+      <xs:element name = "code" type = "xs:int"/>
+      <xs:element name = "message" type = "xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

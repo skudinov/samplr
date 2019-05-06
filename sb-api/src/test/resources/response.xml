@@ -1,0 +1,10 @@
+<ns:response xmlns:ns="urn:samplr-sbapi/1">
+  <ns:metadata>
+    <ns:code>3</ns:code>
+    <ns:message>string</ns:message>
+  </ns:metadata>
+  <ns:payload>
+    <!--You may enter ANY elements at this point-->
+    <!--<AnyElement/>-->
+  </ns:payload>
+</ns:response>

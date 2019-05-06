@@ -1,9 +1,9 @@
-package samplr.sbapi.model.dto;
+package samplr.sbapi.common.domain.model.dto;
 
 import lombok.Data;
 
 @Data
-public class AddressDTO {
+public class DTOAddress {
   private String id;
   private String entityId;
   private String zip;

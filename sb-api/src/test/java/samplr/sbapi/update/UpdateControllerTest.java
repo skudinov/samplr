@@ -1,4 +1,4 @@
-package samplr.sbapi;
+package samplr.sbapi.update;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class EntityControllerTest {
-  @Value("classpath:mybatis.xml")
+public class UpdateControllerTest {
+  @Value("classpath:mybatis.xsd")
   private Resource resource;
   private String xml;
   @Autowired
