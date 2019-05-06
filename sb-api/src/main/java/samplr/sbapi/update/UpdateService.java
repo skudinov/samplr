@@ -9,11 +9,11 @@ import samplr.sbapi.common.domain.model.xsd.XMLEntity;
 @Component
 @RequiredArgsConstructor
 public class UpdateService {
-  private UpdateRegistry updateDao;
-  private DomainMapper domainMapper;
+  private UpdateRegistry registry;
+  private DomainMapper mapper;
 
   public void update(XMLEntity entity) {
-    DTOEntity dto = domainMapper.toDTO(entity);
-    updateDao.insert(dto);
+    DTOEntity dto = mapper.toDTO(entity);
+    registry.insert(dto);
   }
 }
