@@ -1,4 +1,4 @@
-create table entity
+create table if not exists entity 
 (
    id varchar(20) not null,
    name varchar(255) not null,
