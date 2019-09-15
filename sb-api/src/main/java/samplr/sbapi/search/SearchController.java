@@ -13,10 +13,11 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RestController
 @RequiredArgsConstructor
 public class SearchController {
-  private final SearchService responseFactory;
+  private final SearchService searchService;
 
   @PostMapping(path = "/actions/search", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
   public ResponseEntity<?> search(@Valid @RequestBody SearchQuery query) {
+    searchService.findEntities(query);
     return ResponseEntity.ok().build();
   }
 }

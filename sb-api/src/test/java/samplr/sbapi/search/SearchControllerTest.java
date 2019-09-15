@@ -26,6 +26,7 @@ public class SearchControllerTest {
 
   @Test
   public void searchQueryValid() throws Exception {
+    searchRepository.search();
     mvc.perform(
       post("/actions/search")
         .contentType(MediaType.APPLICATION_JSON)
