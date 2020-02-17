@@ -3,5 +3,10 @@ spring:
     name: sb-api
 server:
   port: 9000
+  error:
+    include-stacktrace: always
+    include-exception: true
   servlet:
     context-path: /api
+management.endpoints.web.exposure.include: loggers
+management.endpoint.loggers.enabled: true
