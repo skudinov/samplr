@@ -1,0 +1,61 @@
+public class WorkflowSample {
+    Service entityService;
+    ActionService actionService;
+
+    samplr.workflow.Workflow createWorkflow() {
+        new samplr.workflow.Workflow();
+    }
+
+    void defineWorkflow() {
+        samplr.domain.Step dataInMongoStep = new samplr.domain.Step("DATA_IN_MONGO", new LeadActionFactory());
+        samplr.domain.Step dataInOracleStep = new samplr.domain.Step("DATA_IN_ORACLE");
+        workdlow = new samplr.workflow.Workflow();
+
+        workflow.addTransition("DATA_IN_MONGO:PENDING", dataInMongoStep, READY).setCommand((event) -> entityService.save(event.getEntity()));
+        workflow.addTransition("DATA_IN_MONGO:FAIL", dataInMongoStep, ERROR);
+        workflow.addTransition("DATA_IN_MONGO:SUCCESS", dataInMongoStep, COMPLETED).setNextStep(dataInOracle, READY);
+
+        WorkFlowBuilder wfb = new WorkflowBuilder();
+//        wfb.definition("DATA_IN_MONGO", "guid1");
+//        wfb.definition("DATA_IN_ORACLE", "guid2");
+
+        wfb.state("DATA_IN_MONGO", READY).command("CREATE_ACTION").command("SAVE_LEAD_IN_MONGO");
+        wfb.state("DATA_IN_MONGO", ERROR).command("UPDATE_ACTION");
+        wfb.state("DATA_IN_MONGO", COMPLETED).command("UPDATE_ACTION");
+        wfb.state("DATA_IN_ORACLE", PENDING).command("POST_ORACLE_DATA_IN_READY");
+        wfb.transition("DATA_IN_MONGO:READY", wfb.state("DATA_IN_MONGO", READY));
+        wfb.transition(wfb.state("DATA_IN_MONGO", READY), "DATA_IN_MONGO_COMPLETED", wfb.state("DATA_IN_MONGO", COMPLETED));
+        wfb.transition(wfb.state("DATA_IN_MONGO", COMPLETED), "DATA_IN_ORACLE_PENDING", wfb.state("DATA_IN_ORACLE", PENDING));
+        wfb.transition(wfb.state("DATA_IN_ORACLE", PENDING), "DATA_IN_ORACLE_READY", wfb.state("DATA_IN_ORACLE", READY));
+        samplr.workflow.Workflow wf = wfb.build();
+        wfc.setCurrentState();
+        wfc.addCommandHandler("CREATE_ACTION", ...);
+        wfc.addCommandHandler("SAVE_LEAD_IN_MONGO", ...);
+        wfc.addCommandHandler("POST_ORACLE_DATA_IN_READY", new KafkaWorkkflowMessageProducer(topic, "DATA_IN_ORACLE_READY"));
+        wfc.handle(new samplr.workflow.Event("DATA_IN_ORACLE:READY"));
+    }
+
+    void consumeCleaner(samplr.workflow.Event event) {
+        workflow.handle(event);
+    }
+
+    @KafkaListener(id="cud-command", topics = "${kafka.topic.command.request}")
+    void consumeMessy(samplr.workflow.Event event) {
+        Entity entity = event.getEntity();
+        Action action = new Action("new-action-id1", "READY", entity, "DATA_IN_MONGO");
+        actionService.create(action);
+        try {
+            service.save(entity);
+            action.setState("COMPLETED");
+            actionService.update(action);
+            Action nextAction = new Action(action, "new-action-id2", "READY", entity, "DATA_IN_ORACLE");
+            samplr.workflow.Event nextEvent = new samplr.workflow.Event("DATA_IN_MONGO_COMPLETED", nextAction, entity);
+            produce(nextEvent);
+        } catch (Throwable error) {
+            action.setStatus("ERROR");
+            actionService.update(action);
+            ErrorReportData error = new ErrorReportData(action.getId(), event.getEntity(), error);
+            actionService.create(error);
+        }
+    }
+}
