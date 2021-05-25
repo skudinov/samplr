@@ -11,7 +11,8 @@ public class DemoService {
     private final ObjectProvider<Mono<DemoPrototypeBean>> objectProvider;
 
     public Mono<String> doSomething() {
-        return objectProvider.getObject("prefix")
+        return objectProvider.getObject("param")
                 .map(DemoPrototypeBean::doSomethingElse);
     }
+
 }
