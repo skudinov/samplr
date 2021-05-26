@@ -45,12 +45,6 @@
 			<artifactId>caffeine</artifactId>
 			<version>3.0.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.projectreactor.addons/reactor-extra -->
-		<dependency>
-			<groupId>io.projectreactor.addons</groupId>
-			<artifactId>reactor-extra</artifactId>
-			<version>3.4.3</version>
-		</dependency>
     </dependencies>
 
 	<build>
