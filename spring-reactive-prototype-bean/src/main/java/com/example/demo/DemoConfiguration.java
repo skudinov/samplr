@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.Signal;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,12 +16,12 @@ public class DemoConfiguration {
     private DemoClient demoClient;
 
     @Bean
-    public DemoClient demoClient(Cache<String, Signal<? extends String>> someValueCache) {
+    public DemoClient demoClient(Cache<String, Object> someValueCache) {
         return new DemoCachedClientImpl(new DemoClientImpl(), someValueCache);
     }
 
     @Bean
-    public Cache<String, Signal<? extends String>> caffeineCache() {
+    public Cache<String, Object> caffeineCache() {
         return Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.MINUTES).build();
     }
 
